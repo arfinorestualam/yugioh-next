@@ -7,7 +7,12 @@ export interface CardData {
   card_images: {
     image_url: string
   }[]
-  [key: string]: any // This allows us to use string indexing for sorting
+  [key: string]: any
+}
+
+export interface FilterOptions {
+  searchTerm: string
+  selectedTypes: string[]
 }
 
 export interface SortOption {
