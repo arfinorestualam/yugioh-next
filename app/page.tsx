@@ -26,10 +26,10 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-100 to-purple-100">
+    <div className="flex flex-col min-h-screen bg-indigo-50">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
-        <div className="mb-6 space-y-4 md:space-y-0 md:flex md:items-center md:space-x-4 sticky top-0 bg-gradient-to-br from-blue-100 to-purple-100 z-10 py-4">
+        <div className="mb-6 space-y-4 md:space-y-0 md:flex md:items-center md:space-x-4 sticky top-0 bg-indigo-50 z-10 py-4">
           <SearchBar onSearchChange={handleSearchChange} />
           <TypeFilter onTypeChange={handleTypeChange} />
         </div>
