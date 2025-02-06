@@ -13,6 +13,7 @@ export default function Home() {
     selectedTypes: [],
     level: null,
     attribute: null,
+    monsterType: "",
   })
 
   const handleFilterChange = useCallback((newFilters: FilterOptions) => {

@@ -18,7 +18,7 @@ export default function CardList({ filterOptions }: CardListProps) {
     setIsLoading(true)
     setError(null)
     try {
-      const url = "https://db.ygoprodeck.com/api/v7/cardinfo.php"
+      let url = "https://db.ygoprodeck.com/api/v7/cardinfo.php"
       const params = new URLSearchParams()
 
       if (filterOptions.searchTerm) {
@@ -29,10 +29,10 @@ export default function CardList({ filterOptions }: CardListProps) {
         const type = filterOptions.selectedTypes[0]
         switch (type) {
           case "spell":
-            params.append("type", "Spell Card")
+            url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?type=spell%20card"
             break
           case "trap":
-            params.append("type", "Trap Card")
+            url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?type=trap%20card"
             break
           case "monster":
             if (filterOptions.monsterType) {
@@ -55,10 +55,12 @@ export default function CardList({ filterOptions }: CardListProps) {
         params.append("attribute", filterOptions.attribute)
       }
 
-      params.append("num", "100")
-      params.append("offset", "0")
+      if (!url.includes("?")) {
+        params.append("num", "100")
+        params.append("offset", "0")
+      }
 
-      const finalUrl = `${url}?${params.toString()}`
+      const finalUrl = url.includes("?") ? url : `${url}?${params.toString()}`
       console.log("Fetching cards from:", finalUrl)
 
       const response = await fetch(finalUrl)
