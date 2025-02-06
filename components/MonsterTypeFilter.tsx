@@ -4,21 +4,25 @@ import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-const cardTypes = [
-  { name: "All Cards", value: "" },
-  { name: "Monster", value: "monster" },
-  { name: "Spell", value: "spell" },
-  { name: "Trap", value: "trap" },
+const monsterTypes = [
+  { name: "All Monster Types", value: "" },
+  { name: "Normal Monster", value: "Normal Monster" },
+  { name: "Effect Monster", value: "Effect Monster" },
+  { name: "Fusion Monster", value: "Fusion Monster" },
+  { name: "Ritual Monster", value: "Ritual Monster" },
+  { name: "Synchro Monster", value: "Synchro Monster" },
+  { name: "XYZ Monster", value: "XYZ Monster" },
+  { name: "Link Monster", value: "Link Monster" },
 ]
 
-interface TypeFilterProps {
-  selectedType: string
-  onTypeChange: (type: string) => void
+interface MonsterTypeFilterProps {
+  selectedMonsterType: string
+  onMonsterTypeChange: (type: string) => void
 }
 
-export default function TypeFilter({ selectedType, onTypeChange }: TypeFilterProps) {
+export default function MonsterTypeFilter({ selectedMonsterType, onMonsterTypeChange }: MonsterTypeFilterProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const selectedLabel = cardTypes.find((type) => type.value === selectedType)?.name || "Filter by Type"
+  const selectedLabel = monsterTypes.find((type) => type.value === selectedMonsterType)?.name || "All Monster Types"
 
   return (
     <div className="relative">
@@ -34,21 +38,21 @@ export default function TypeFilter({ selectedType, onTypeChange }: TypeFilterPro
       </Button>
       {isOpen && (
         <ul className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-          {cardTypes.map((type) => (
+          {monsterTypes.map((type) => (
             <li
               key={type.value}
               className={`relative cursor-pointer select-none py-2 pl-10 pr-4 ${
-                type.value === selectedType ? "bg-indigo-100 text-indigo-900" : "text-gray-900"
+                type.value === selectedMonsterType ? "bg-indigo-100 text-indigo-900" : "text-gray-900"
               }`}
               onClick={() => {
-                onTypeChange(type.value)
+                onMonsterTypeChange(type.value)
                 setIsOpen(false)
               }}
             >
-              <span className={`block truncate ${type.value === selectedType ? "font-medium" : "font-normal"}`}>
+              <span className={`block truncate ${type.value === selectedMonsterType ? "font-medium" : "font-normal"}`}>
                 {type.name}
               </span>
-              {type.value === selectedType && (
+              {type.value === selectedMonsterType && (
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
                   <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path

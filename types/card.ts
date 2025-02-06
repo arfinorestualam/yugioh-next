@@ -4,6 +4,8 @@ export interface CardData {
   type: string
   atk?: number
   def?: number
+  level?: number
+  attribute?: string
   card_images: {
     image_url: string
   }[]
@@ -13,6 +15,9 @@ export interface CardData {
 export interface FilterOptions {
   searchTerm: string
   selectedTypes: string[]
+  monsterType: string
+  level: number | null
+  attribute: string | null
 }
 
 export interface SortOption {
