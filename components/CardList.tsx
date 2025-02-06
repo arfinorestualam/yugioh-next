@@ -18,65 +18,64 @@ export default function CardList({ filterOptions }: CardListProps) {
     setIsLoading(true)
     setError(null)
     try {
-      let url = "https://db.ygoprodeck.com/api/v7/cardinfo.php"
+      const url = "https://db.ygoprodeck.com/api/v7/cardinfo.php"
       const params = new URLSearchParams()
 
       if (filterOptions.searchTerm) {
         params.append("fname", filterOptions.searchTerm)
       }
 
-      const monsterSubtypes = [
-        "Normal Monster",
-        "Effect Monster",
-        "Fusion Monster",
-        "Ritual Monster",
-        "Synchro Monster",
-        "XYZ Monster",
-        "Link Monster",
-      ]
-
-      const selectedTypes = filterOptions.selectedTypes.filter(
-        (type) => type === "spell" || type === "trap" || monsterSubtypes.includes(type),
-      )
-
-      if (selectedTypes.length > 0) {
-        const typeParams = selectedTypes
-          .map((type) => {
-            switch (type) {
-              case "spell":
-                return "Spell Card"
-              case "trap":
-                return "Trap Card"
-              default:
-                return type
+      if (filterOptions.selectedTypes.length > 0) {
+        const type = filterOptions.selectedTypes[0]
+        switch (type) {
+          case "spell":
+            params.append("type", "Spell Card")
+            break
+          case "trap":
+            params.append("type", "Trap Card")
+            break
+          case "monster":
+            if (filterOptions.monsterType) {
+              params.append("type", filterOptions.monsterType)
+            } else {
+              params.append(
+                "type",
+                "Effect Monster,Fusion Monster,Synchro Monster,XYZ Monster,Link Monster,Normal Monster,Ritual Monster",
+              )
             }
-          })
-          .join(",")
-
-        if (typeParams) {
-          params.append("type", typeParams)
+            break
         }
       }
 
-      // Always add a limit to prevent overwhelming the API
+      if (filterOptions.level !== null) {
+        params.append("level", filterOptions.level.toString())
+      }
+
+      if (filterOptions.attribute) {
+        params.append("attribute", filterOptions.attribute)
+      }
+
       params.append("num", "100")
       params.append("offset", "0")
 
-      if (params.toString()) {
-        url += `?${params.toString()}`
-      }
+      const finalUrl = `${url}?${params.toString()}`
+      console.log("Fetching cards from:", finalUrl)
 
-      console.log("Fetching cards from URL:", url) // Log the URL being fetched
-
-      const response = await fetch(url)
+      const response = await fetch(finalUrl)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
       const data = await response.json()
+
       if (data.error) {
         throw new Error(data.error)
       }
-      setCards(data.data || [])
+
+      if (!Array.isArray(data.data)) {
+        throw new Error("Unexpected API response format")
+      }
+
+      setCards(data.data)
     } catch (err) {
       console.error("Error fetching cards:", err)
       setError(`Failed to load cards: ${err instanceof Error ? err.message : "Unknown error"}`)
