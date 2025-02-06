@@ -7,7 +7,7 @@ interface CardProps {
 
 export default function Card({ card }: CardProps) {
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl">
+    <div className="bg-gray-100 rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl">
       <div className="relative w-full pt-[146%]">
         <Image
           src={card.card_images[0].image_url || "/placeholder.svg"}
@@ -17,7 +17,7 @@ export default function Card({ card }: CardProps) {
           className="object-cover"
         />
       </div>
-      <div className="p-4 bg-gradient-to-b from-gray-50 to-gray-100">
+      <div className="p-4 bg-gray-100">
         <h2 className="text-lg font-semibold mb-2 truncate" title={card.name}>
           {card.name}
         </h2>
