@@ -5,6 +5,8 @@ import TypeFilter from "./TypeFilter"
 import AttributeFilter from "./AttributeFilter"
 import LevelFilter from "./LevelFilter"
 import MonsterTypeFilter from "./MonsterTypeFilter"
+import SpellFilter from "./SpellFilter"
+import TrapFilter from "./TrapFilter"
 import SearchBar from "./SearchBar"
 import type { FilterOptions } from "@/types/card"
 
@@ -17,6 +19,8 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
     searchTerm: "",
     selectedTypes: [],
     monsterType: "",
+    spellType: "",
+    trapType: "",
     level: null,
     attribute: null,
   })
@@ -29,17 +33,25 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
     setFilters((prev) => ({
       ...prev,
       selectedTypes: selectedType ? [selectedType] : [],
-      // Reset monster-specific filters if not a monster type
-      ...(!["monster", "spell", "trap"].includes(selectedType) && {
-        monsterType: "",
-        level: null,
-        attribute: null,
-      }),
+      // Reset type-specific filters when changing main type
+      monsterType: "",
+      spellType: "",
+      trapType: "",
+      level: null,
+      attribute: null,
     }))
   }
 
   const handleMonsterTypeChange = (monsterType: string) => {
     setFilters((prev) => ({ ...prev, monsterType }))
+  }
+
+  const handleSpellTypeChange = (spellType: string) => {
+    setFilters((prev) => ({ ...prev, spellType }))
+  }
+
+  const handleTrapTypeChange = (trapType: string) => {
+    setFilters((prev) => ({ ...prev, trapType }))
   }
 
   const handleAttributeChange = (attribute: string | null) => {
@@ -55,6 +67,8 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
   }, [filters, onFilterChange])
 
   const showMonsterFilters = filters.selectedTypes.includes("monster")
+  const showSpellFilters = filters.selectedTypes.includes("spell")
+  const showTrapFilters = filters.selectedTypes.includes("trap")
 
   return (
     <div className="space-y-6">
@@ -83,6 +97,24 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Level</h3>
             <LevelFilter onLevelChange={handleLevelChange} selectedLevel={filters.level} />
+          </div>
+        </div>
+      )}
+
+      {showSpellFilters && (
+        <div className="bg-white p-4 rounded-lg shadow-sm space-y-4">
+          <div>
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Spell Card Type</h3>
+            <SpellFilter onSpellTypeChange={handleSpellTypeChange} selectedSpellType={filters.spellType} />
+          </div>
+        </div>
+      )}
+
+      {showTrapFilters && (
+        <div className="bg-white p-4 rounded-lg shadow-sm space-y-4">
+          <div>
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Trap Card Type</h3>
+            <TrapFilter onTrapTypeChange={handleTrapTypeChange} selectedTrapType={filters.trapType} />
           </div>
         </div>
       )}

@@ -18,7 +18,7 @@ export default function CardList({ filterOptions }: CardListProps) {
     setIsLoading(true)
     setError(null)
     try {
-      let url = "https://db.ygoprodeck.com/api/v7/cardinfo.php"
+      const url = "https://db.ygoprodeck.com/api/v7/cardinfo.php"
       const params = new URLSearchParams()
 
       if (filterOptions.searchTerm) {
@@ -29,10 +29,16 @@ export default function CardList({ filterOptions }: CardListProps) {
         const type = filterOptions.selectedTypes[0]
         switch (type) {
           case "spell":
-            url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?type=spell%20card"
+            params.append("type", "Spell Card")
+            if (filterOptions.spellType) {
+              params.append("race", filterOptions.spellType)
+            }
             break
           case "trap":
-            url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?type=trap%20card"
+            params.append("type", "Trap Card")
+            if (filterOptions.trapType) {
+              params.append("race", filterOptions.trapType)
+            }
             break
           case "monster":
             if (filterOptions.monsterType) {
@@ -43,24 +49,20 @@ export default function CardList({ filterOptions }: CardListProps) {
                 "Effect Monster,Fusion Monster,Synchro Monster,XYZ Monster,Link Monster,Normal Monster,Ritual Monster",
               )
             }
+            if (filterOptions.level !== null) {
+              params.append("level", filterOptions.level.toString())
+            }
+            if (filterOptions.attribute) {
+              params.append("attribute", filterOptions.attribute)
+            }
             break
         }
       }
 
-      if (filterOptions.level !== null) {
-        params.append("level", filterOptions.level.toString())
-      }
+      params.append("num", "100")
+      params.append("offset", "0")
 
-      if (filterOptions.attribute) {
-        params.append("attribute", filterOptions.attribute)
-      }
-
-      if (!url.includes("?")) {
-        params.append("num", "100")
-        params.append("offset", "0")
-      }
-
-      const finalUrl = url.includes("?") ? url : `${url}?${params.toString()}`
+      const finalUrl = `${url}?${params.toString()}`
       console.log("Fetching cards from:", finalUrl)
 
       const response = await fetch(finalUrl)
