@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"
 import Card from "./Card"
+import CardModal from "./CardModal"
 import ErrorPage from "./ErrorPage"
 import type { CardData, FilterOptions } from "@/types/card"
 
@@ -13,6 +14,7 @@ export default function CardList({ filterOptions }: CardListProps) {
   const [cards, setCards] = useState<CardData[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [selectedCard, setSelectedCard] = useState<CardData | null>(null)
 
   const fetchCards = useCallback(async () => {
     setIsLoading(true)
@@ -93,6 +95,14 @@ export default function CardList({ filterOptions }: CardListProps) {
     fetchCards()
   }, [fetchCards])
 
+  const handleCardClick = (card: CardData) => {
+    setSelectedCard(card)
+  }
+
+  const handleCloseModal = () => {
+    setSelectedCard(null)
+  }
+
   if (isLoading) return <div className="text-center mt-8 text-2xl">Loading...</div>
   if (error || cards.length === 0) {
     return (
@@ -101,11 +111,14 @@ export default function CardList({ filterOptions }: CardListProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-      {cards.map((card) => (
-        <Card key={card.id} card={card} />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        {cards.map((card) => (
+          <Card key={card.id} card={card} onClick={handleCardClick} />
+        ))}
+      </div>
+      {selectedCard && <CardModal card={selectedCard} onClose={handleCloseModal} />}
+    </>
   )
 }
 

@@ -3,11 +3,15 @@ import type { CardData } from "@/types/card"
 
 interface CardProps {
   card: CardData
+  onClick: (card: CardData) => void
 }
 
-export default function Card({ card }: CardProps) {
+export default function Card({ card, onClick }: CardProps) {
   return (
-    <div className="bg-gray-100 rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl">
+    <div
+      className="bg-gray-100 rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl cursor-pointer"
+      onClick={() => onClick(card)}
+    >
       <div className="relative w-full pt-[146%]">
         <Image
           src={card.card_images[0].image_url || "/placeholder.svg"}
