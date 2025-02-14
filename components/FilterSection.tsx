@@ -8,6 +8,7 @@ import MonsterTypeFilter from "./MonsterTypeFilter"
 import SpellFilter from "./SpellFilter"
 import TrapFilter from "./TrapFilter"
 import SearchBar from "./SearchBar"
+import SortFilter from "./SortFilter"
 import type { FilterOptions } from "@/types/card"
 
 interface FilterSectionProps {
@@ -24,6 +25,8 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
     level: null,
     attribute: null,
   })
+
+  const [sort, setSort] = useState("")
 
   const handleSearchChange = (searchTerm: string) => {
     setFilters((prev) => ({ ...prev, searchTerm }))
@@ -62,9 +65,13 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
     setFilters((prev) => ({ ...prev, level }))
   }
 
+  const handleSortChange = (newSort: string) => {
+    setSort(newSort)
+  }
+
   useEffect(() => {
-    onFilterChange(filters)
-  }, [filters, onFilterChange])
+    onFilterChange({ ...filters, sort })
+  }, [filters, sort, onFilterChange])
 
   const showMonsterFilters = filters.selectedTypes.includes("monster")
   const showSpellFilters = filters.selectedTypes.includes("spell")
@@ -98,6 +105,12 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
             <h3 className="text-sm font-medium text-gray-700 mb-2">Level</h3>
             <LevelFilter onLevelChange={handleLevelChange} selectedLevel={filters.level} />
           </div>
+          {filters.monsterType && (
+            <div>
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
+              <SortFilter selectedSort={sort} onSortChange={handleSortChange} />
+            </div>
+          )}
         </div>
       )}
 

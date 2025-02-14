@@ -14,6 +14,8 @@ export default function Home() {
     level: null,
     attribute: null,
     monsterType: "",
+    spellType: "",
+    trapType: "",
   })
 
   const handleFilterChange = useCallback((newFilters: FilterOptions) => {
