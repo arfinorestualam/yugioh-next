@@ -9,7 +9,6 @@ const sortOptions = [
   { name: "ATK", value: "atk" },
   { name: "DEF", value: "def" },
   { name: "Name", value: "name" },
-  { name: "Type", value: "type" },
   { name: "Level", value: "level" },
   { name: "ID", value: "id" },
   { name: "New", value: "new" },
