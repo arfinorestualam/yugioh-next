@@ -7,7 +7,7 @@ import ErrorPage from "./ErrorPage"
 import type { CardData, FilterOptions } from "@/types/card"
 
 interface CardListProps {
-  filterOptions: FilterOptions
+  filterOptions: FilterOptions & { sort?: string }
 }
 
 export default function CardList({ filterOptions }: CardListProps) {
@@ -57,6 +57,10 @@ export default function CardList({ filterOptions }: CardListProps) {
             if (filterOptions.attribute) {
               params.append("attribute", filterOptions.attribute)
             }
+            // Only apply sort for monster cards
+            if (filterOptions.sort) {
+              params.append("sort", filterOptions.sort)
+            }
             break
         }
       }
@@ -83,8 +87,8 @@ export default function CardList({ filterOptions }: CardListProps) {
 
       setCards(data.data)
     } catch (err) {
-      console.error("Error fetching cards:", err)
-      setError(`Failed to load cards: ${err instanceof Error ? err.message : "Unknown error"}`)
+      console.error('Error fetching cards:', err)
+      setError(`Failed to load cards: ${err instanceof Error ? err.message : JSON.stringify(err)}`)
       setCards([])
     } finally {
       setIsLoading(false)
@@ -106,7 +110,11 @@ export default function CardList({ filterOptions }: CardListProps) {
   if (isLoading) return <div className="text-center mt-8 text-2xl">Loading...</div>
   if (error || cards.length === 0) {
     return (
-      <ErrorPage isEmptyData={cards.length === 0 && !error} errorMessage={error || undefined} onRetry={fetchCards} />
+      <ErrorPage 
+        isEmptyData={cards.length === 0 && !error} 
+        errorMessage={error || "No cards found"} 
+        onRetry={fetchCards} 
+      />
     )
   }
 

@@ -1,10 +1,10 @@
 import Image from "next/image"
-import { RefreshCcw, Home } from "lucide-react"
+import { RefreshCcw, Home } from 'lucide-react'
 import Link from "next/link"
 
 interface ErrorPageProps {
   isEmptyData: boolean
-  errorMessage?: string
+  errorMessage: string
   onRetry: () => void
 }
 

@@ -39,14 +39,6 @@ export interface FilterOptions {
   trapType: string
   level: number | null
   attribute: string | null
-}
-
-
-
-
-
-export interface SortOption {
-  field: "atk" | "def" | null
-  order: "asc" | "desc"
+  sort?: string
 }
 
