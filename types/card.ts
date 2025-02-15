@@ -39,6 +39,6 @@ export interface FilterOptions {
   trapType: string
   level: number | null
   attribute: string | null
-  sort?: string
+  sort: string
 }
 
