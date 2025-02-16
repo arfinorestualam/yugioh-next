@@ -139,4 +139,4 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
     </div>
   )
 }
-
+}
