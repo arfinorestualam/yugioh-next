@@ -7,7 +7,7 @@ import ErrorPage from "./ErrorPage"
 import type { CardData, FilterOptions } from "@/types/card"
 
 interface CardListProps {
-  filterOptions: FilterOptions & { sort?: string }
+  filterOptions: FilterOptions
 }
 
 export default function CardList({ filterOptions }: CardListProps) {
@@ -35,11 +35,17 @@ export default function CardList({ filterOptions }: CardListProps) {
             if (filterOptions.spellType) {
               params.append("race", filterOptions.spellType)
             }
+            if (filterOptions.sort) {
+              params.append("sort", filterOptions.sort)
+            }
             break
           case "trap":
             params.append("type", "Trap Card")
             if (filterOptions.trapType) {
               params.append("race", filterOptions.trapType)
+            }
+            if (filterOptions.sort) {
+              params.append("sort", filterOptions.sort)
             }
             break
           case "monster":
@@ -57,7 +63,6 @@ export default function CardList({ filterOptions }: CardListProps) {
             if (filterOptions.attribute) {
               params.append("attribute", filterOptions.attribute)
             }
-            // Only apply sort for monster cards
             if (filterOptions.sort) {
               params.append("sort", filterOptions.sort)
             }

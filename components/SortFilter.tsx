@@ -4,7 +4,7 @@ import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-const sortOptions = [
+const monsterSortOptions = [
   { name: "Default", value: "" },
   { name: "ATK", value: "atk" },
   { name: "DEF", value: "def" },
@@ -14,13 +14,22 @@ const sortOptions = [
   { name: "New", value: "new" },
 ]
 
+const spellTrapSortOptions = [
+  { name: "Default", value: "" },
+  { name: "Name", value: "name" },
+  { name: "ID", value: "id" },
+  { name: "New", value: "new" },
+]
+
 interface SortFilterProps {
   selectedSort: string
   onSortChange: (sort: string) => void
+  cardType: "monster" | "spell" | "trap"
 }
 
-export default function SortFilter({ selectedSort, onSortChange }: SortFilterProps) {
+export default function SortFilter({ selectedSort, onSortChange, cardType }: SortFilterProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const sortOptions = cardType === "monster" ? monsterSortOptions : spellTrapSortOptions
   const selectedLabel = sortOptions.find((option) => option.value === selectedSort)?.name || "Sort by"
 
   return (
