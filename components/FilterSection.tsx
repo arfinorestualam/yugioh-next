@@ -67,6 +67,7 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
 
   const handleSortChange = (sort: string) => {
     setFilters((prev) => ({ ...prev, sort: sort || "" }))
+  }
 
   useEffect(() => {
     onFilterChange(filters)
@@ -139,4 +140,4 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
     </div>
   )
 }
-}
+
