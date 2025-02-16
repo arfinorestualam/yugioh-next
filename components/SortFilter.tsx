@@ -14,7 +14,7 @@ const monsterSortOptions = [
   { name: "New", value: "new" },
 ]
 
-const spellSortOptions = [
+const spellTrapSortOptions = [
   { name: "Default", value: "" },
   { name: "Name", value: "name" },
   { name: "ID", value: "id" },
@@ -24,12 +24,12 @@ const spellSortOptions = [
 interface SortFilterProps {
   selectedSort: string
   onSortChange: (sort: string) => void
-  cardType: "monster" | "spell"
+  cardType: "monster" | "spell" | "trap"
 }
 
 export default function SortFilter({ selectedSort, onSortChange, cardType }: SortFilterProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const sortOptions = cardType === "monster" ? monsterSortOptions : spellSortOptions
+  const sortOptions = cardType === "monster" ? monsterSortOptions : spellTrapSortOptions
   const selectedLabel = sortOptions.find((option) => option.value === selectedSort)?.name || "Sort by"
 
   return (

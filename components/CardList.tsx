@@ -44,6 +44,9 @@ export default function CardList({ filterOptions }: CardListProps) {
             if (filterOptions.trapType) {
               params.append("race", filterOptions.trapType)
             }
+            if (filterOptions.sort) {
+              params.append("sort", filterOptions.sort)
+            }
             break
           case "monster":
             if (filterOptions.monsterType) {

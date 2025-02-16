@@ -66,8 +66,7 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
   }
 
   const handleSortChange = (sort: string) => {
-    setFilters((prev) => ({ ...prev, sort }))
-  }
+    setFilters((prev) => ({ ...prev, sort: sort || "" }))
 
   useEffect(() => {
     onFilterChange(filters)
@@ -107,7 +106,7 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
           </div>
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
-            <SortFilter selectedSort={filters.sort} onSortChange={handleSortChange} cardType="monster" />
+            <SortFilter selectedSort={filters.sort || ""} onSortChange={handleSortChange} cardType="monster" />
           </div>
         </div>
       )}
@@ -120,7 +119,7 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
           </div>
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
-            <SortFilter selectedSort={filters.sort} onSortChange={handleSortChange} cardType="spell" />
+            <SortFilter selectedSort={filters.sort || ""} onSortChange={handleSortChange} cardType="spell" />
           </div>
         </div>
       )}
@@ -130,6 +129,10 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Trap Card Type</h3>
             <TrapFilter onTrapTypeChange={handleTrapTypeChange} selectedTrapType={filters.trapType} />
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
+            <SortFilter selectedSort={filters.sort || ""} onSortChange={handleSortChange} cardType="trap" />
           </div>
         </div>
       )}
