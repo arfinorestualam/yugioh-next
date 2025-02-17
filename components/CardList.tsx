@@ -35,17 +35,11 @@ export default function CardList({ filterOptions }: CardListProps) {
             if (filterOptions.spellType) {
               params.append("race", filterOptions.spellType)
             }
-            if (filterOptions.sort) {
-              params.append("sort", filterOptions.sort)
-            }
             break
           case "trap":
             params.append("type", "Trap Card")
             if (filterOptions.trapType) {
               params.append("race", filterOptions.trapType)
-            }
-            if (filterOptions.sort) {
-              params.append("sort", filterOptions.sort)
             }
             break
           case "monster":
@@ -54,7 +48,7 @@ export default function CardList({ filterOptions }: CardListProps) {
             } else {
               params.append(
                 "type",
-                "Effect Monster,Fusion Monster,Synchro Monster,XYZ Monster,Link Monster,Normal Monster,Ritual Monster",
+                "Normal Monster,Normal Tuner Monster,Effect Monster,Tuner Monster,Flip Monster,Flip Effect Monster,Spirit Monster,Union Effect Monster,Gemini Monster,Pendulum Effect Monster,Pendulum Normal Monster,Pendulum Effect Ritual Monster,Pendulum Tuner Effect Monster,Ritual Monster,Ritual Effect Monster,Toon Monster,Fusion Monster,Synchro Monster,Synchro Tuner Monster,Synchro Pendulum Effect Monster,XYZ Monster,XYZ Pendulum Effect Monster,Link Monster,Pendulum Flip Effect Monster,Pendulum Effect Fusion Monster,Token",
               )
             }
             if (filterOptions.level !== null) {
@@ -63,11 +57,12 @@ export default function CardList({ filterOptions }: CardListProps) {
             if (filterOptions.attribute) {
               params.append("attribute", filterOptions.attribute)
             }
-            if (filterOptions.sort) {
-              params.append("sort", filterOptions.sort)
-            }
             break
         }
+      }
+
+      if (filterOptions.sort) {
+        params.append("sort", filterOptions.sort)
       }
 
       params.append("num", "100")
