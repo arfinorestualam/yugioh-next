@@ -42,6 +42,9 @@ export default function CardList({ filterOptions }: CardListProps) {
               params.append("race", filterOptions.trapType)
             }
             break
+          case "skill":
+            params.append("type", "Skill Card")
+            break
           case "monster":
             if (filterOptions.monsterType) {
               params.append("type", filterOptions.monsterType)

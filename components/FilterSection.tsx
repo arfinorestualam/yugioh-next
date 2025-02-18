@@ -76,6 +76,7 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
   const showMonsterFilters = filters.selectedTypes.includes("monster")
   const showSpellFilters = filters.selectedTypes.includes("spell")
   const showTrapFilters = filters.selectedTypes.includes("trap")
+  const showSkillFilters = filters.selectedTypes.includes("skill")
 
   return (
     <div className="space-y-6">
@@ -134,6 +135,15 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
             <SortFilter selectedSort={filters.sort || ""} onSortChange={handleSortChange} cardType="trap" />
+          </div>
+        </div>
+      )}
+
+      {showSkillFilters && (
+        <div className="bg-white p-4 rounded-lg shadow-sm space-y-4">
+          <div>
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
+            <SortFilter selectedSort={filters.sort || ""} onSortChange={handleSortChange} cardType="skill" />
           </div>
         </div>
       )}

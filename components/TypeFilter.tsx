@@ -9,6 +9,7 @@ const cardTypes = [
   { name: "Monster", value: "monster" },
   { name: "Spell", value: "spell" },
   { name: "Trap", value: "trap" },
+  { name: "Skill", value: "skill" },
 ]
 
 interface TypeFilterProps {
