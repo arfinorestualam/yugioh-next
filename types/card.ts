@@ -40,5 +40,11 @@ export interface FilterOptions {
   level: number | null
   attribute: string | null
   sort: string
+  banlist: string
+}
+
+export interface SortOption {
+  field: "atk" | "def" | null
+  order: "asc" | "desc"
 }
 

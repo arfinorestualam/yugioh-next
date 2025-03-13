@@ -11,11 +11,13 @@ export default function Home() {
   const [filterOptions, setFilterOptions] = useState<FilterOptions>({
     searchTerm: "",
     selectedTypes: [],
-    level: null,
-    attribute: null,
     monsterType: "",
     spellType: "",
     trapType: "",
+    level: null,
+    attribute: null,
+    sort: "",
+    banlist: "",
   })
 
   const handleFilterChange = useCallback((newFilters: FilterOptions) => {
