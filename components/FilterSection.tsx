@@ -7,6 +7,7 @@ import LevelFilter from "./LevelFilter"
 import MonsterTypeFilter from "./MonsterTypeFilter"
 import SpellFilter from "./SpellFilter"
 import TrapFilter from "./TrapFilter"
+import BanlistFilter from "./BanlistFilter"
 import SearchBar from "./SearchBar"
 import SortFilter from "./SortFilter"
 import type { FilterOptions } from "@/types/card"
@@ -25,6 +26,7 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
     level: null,
     attribute: null,
     sort: "",
+    banlist: "",
   })
 
   const handleSearchChange = (searchTerm: string) => {
@@ -42,6 +44,7 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
       level: null,
       attribute: null,
       sort: "",
+      banlist: "",
     }))
   }
 
@@ -67,6 +70,10 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
 
   const handleSortChange = (sort: string) => {
     setFilters((prev) => ({ ...prev, sort: sort || "" }))
+  }
+
+  const handleBanlistChange = (banlist: string) => {
+    setFilters((prev) => ({ ...prev, banlist }))
   }
 
   useEffect(() => {
@@ -107,6 +114,10 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
             <LevelFilter onLevelChange={handleLevelChange} selectedLevel={filters.level} />
           </div>
           <div>
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Banlist Format</h3>
+            <BanlistFilter selectedBanlist={filters.banlist} onBanlistChange={handleBanlistChange} />
+          </div>
+          <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
             <SortFilter selectedSort={filters.sort || ""} onSortChange={handleSortChange} cardType="monster" />
           </div>
@@ -118,6 +129,10 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Spell Card Type</h3>
             <SpellFilter onSpellTypeChange={handleSpellTypeChange} selectedSpellType={filters.spellType} />
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Banlist Format</h3>
+            <BanlistFilter selectedBanlist={filters.banlist} onBanlistChange={handleBanlistChange} />
           </div>
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
@@ -133,6 +148,10 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
             <TrapFilter onTrapTypeChange={handleTrapTypeChange} selectedTrapType={filters.trapType} />
           </div>
           <div>
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Banlist Format</h3>
+            <BanlistFilter selectedBanlist={filters.banlist} onBanlistChange={handleBanlistChange} />
+          </div>
+          <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
             <SortFilter selectedSort={filters.sort || ""} onSortChange={handleSortChange} cardType="trap" />
           </div>
@@ -141,6 +160,10 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
 
       {showSkillFilters && (
         <div className="bg-white p-4 rounded-lg shadow-sm space-y-4">
+          <div>
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Banlist Format</h3>
+            <BanlistFilter selectedBanlist={filters.banlist} onBanlistChange={handleBanlistChange} />
+          </div>
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
             <SortFilter selectedSort={filters.sort || ""} onSortChange={handleSortChange} cardType="skill" />

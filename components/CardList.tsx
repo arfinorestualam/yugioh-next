@@ -68,6 +68,11 @@ export default function CardList({ filterOptions }: CardListProps) {
         params.append("sort", filterOptions.sort)
       }
 
+      // Add banlist parameter if selected
+      if (filterOptions.banlist) {
+        params.append("banlist", filterOptions.banlist)
+      }
+
       params.append("num", "100")
       params.append("offset", "0")
 
