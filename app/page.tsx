@@ -28,9 +28,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-indigo-50">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
-        <div className="sticky top-0 bg-indigo-50 z-10 py-4">
-          <FilterSection onFilterChange={handleFilterChange} />
-        </div>
+        <FilterSection onFilterChange={handleFilterChange} />
         <div className="mt-6">
           <CardList filterOptions={filterOptions} />
         </div>
