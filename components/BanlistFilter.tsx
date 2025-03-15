@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const banlistOptions = [
-  { name: "All Formats", value: "" },
+  { name: "No Format", value: "" },
   { name: "TCG", value: "tcg" },
   { name: "OCG", value: "ocg" },
   { name: "GOAT", value: "goat" },
@@ -18,7 +18,7 @@ interface BanlistFilterProps {
 
 export default function BanlistFilter({ selectedBanlist, onBanlistChange }: BanlistFilterProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const selectedLabel = banlistOptions.find((option) => option.value === selectedBanlist)?.name || "All Formats"
+  const selectedLabel = banlistOptions.find((option) => option.value === selectedBanlist)?.name || "No Format"
 
   return (
     <div className="relative">
