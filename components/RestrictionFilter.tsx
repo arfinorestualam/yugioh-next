@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const restrictionOptions = [
-  { name: "All Cards", value: "" },
+  { name: "No Restriction", value: "" },
   { name: "Forbidden", value: "forbidden" },
   { name: "Limited", value: "limited" },
   { name: "Semi-Limited", value: "semi-limited" },
