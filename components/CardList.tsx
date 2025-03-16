@@ -93,7 +93,27 @@ export default function CardList({ filterOptions }: CardListProps) {
         throw new Error("Unexpected API response format")
       }
 
-      setCards(data.data)
+      let filteredCards = data.data
+
+      // Apply client-side filtering for restriction status if needed
+      if (filterOptions.restriction) {
+        filteredCards = filteredCards.filter((card: CardData) => {
+          if (!card.banlist_info) return false
+
+          // Check the selected format's restriction status
+          if (filterOptions.banlist === "tcg") {
+            return card.banlist_info.ban_tcg?.toLowerCase() === filterOptions.restriction
+          } else if (filterOptions.banlist === "ocg") {
+            return card.banlist_info.ban_ocg?.toLowerCase() === filterOptions.restriction
+          } else if (filterOptions.banlist === "goat") {
+            return card.banlist_info.ban_goat?.toLowerCase() === filterOptions.restriction
+          }
+
+          return false
+        })
+      }
+
+      setCards(filteredCards)
     } catch (err) {
       console.error("Error fetching cards:", err)
       setError(`Failed to load cards: ${err instanceof Error ? err.message : JSON.stringify(err)}`)

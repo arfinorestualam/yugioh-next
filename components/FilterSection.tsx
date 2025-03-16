@@ -11,7 +11,7 @@ import BanlistFilter from "./BanlistFilter"
 import SearchBar from "./SearchBar"
 import SortFilter from "./SortFilter"
 import type { FilterOptions } from "@/types/card"
-
+import RestrictionFilter from "./RestrictionFilter"
 interface FilterSectionProps {
   onFilterChange: (filters: FilterOptions) => void
 }
@@ -27,6 +27,7 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
     attribute: null,
     sort: "",
     banlist: "",
+    restriction: "",
   })
 
   const handleSearchChange = (searchTerm: string) => {
@@ -45,6 +46,7 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
       attribute: null,
       sort: "",
       banlist: "",
+      restriction: "",
     }))
   }
 
@@ -73,7 +75,11 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
   }
 
   const handleBanlistChange = (banlist: string) => {
-    setFilters((prev) => ({ ...prev, banlist }))
+    setFilters((prev) => ({ ...prev, banlist, restriction: "" })) // Reset restriction when banlist changes
+  }
+
+  const handleRestrictionChange = (restriction: string) => {
+    setFilters((prev) => ({ ...prev, restriction }))
   }
 
   useEffect(() => {
@@ -84,6 +90,7 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
   const showSpellFilters = filters.selectedTypes.includes("spell")
   const showTrapFilters = filters.selectedTypes.includes("trap")
   const showSkillFilters = filters.selectedTypes.includes("skill")
+  const showRestrictionFilter = filters.banlist !== "" // Only show restriction filter if a banlist format is selected
 
   return (
     <div className="space-y-6">
@@ -117,6 +124,15 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
             <h3 className="text-sm font-medium text-gray-700 mb-2">Banlist Format</h3>
             <BanlistFilter selectedBanlist={filters.banlist} onBanlistChange={handleBanlistChange} />
           </div>
+          {showRestrictionFilter && (
+            <div>
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Restriction Status</h3>
+              <RestrictionFilter
+                selectedRestriction={filters.restriction}
+                onRestrictionChange={handleRestrictionChange}
+              />
+            </div>
+          )}
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
             <SortFilter selectedSort={filters.sort || ""} onSortChange={handleSortChange} cardType="monster" />
@@ -134,6 +150,15 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
             <h3 className="text-sm font-medium text-gray-700 mb-2">Banlist Format</h3>
             <BanlistFilter selectedBanlist={filters.banlist} onBanlistChange={handleBanlistChange} />
           </div>
+          {showRestrictionFilter && (
+            <div>
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Restriction Status</h3>
+              <RestrictionFilter
+                selectedRestriction={filters.restriction}
+                onRestrictionChange={handleRestrictionChange}
+              />
+            </div>
+          )}
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
             <SortFilter selectedSort={filters.sort || ""} onSortChange={handleSortChange} cardType="spell" />
@@ -151,6 +176,15 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
             <h3 className="text-sm font-medium text-gray-700 mb-2">Banlist Format</h3>
             <BanlistFilter selectedBanlist={filters.banlist} onBanlistChange={handleBanlistChange} />
           </div>
+          {showRestrictionFilter && (
+            <div>
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Restriction Status</h3>
+              <RestrictionFilter
+                selectedRestriction={filters.restriction}
+                onRestrictionChange={handleRestrictionChange}
+              />
+            </div>
+          )}
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
             <SortFilter selectedSort={filters.sort || ""} onSortChange={handleSortChange} cardType="trap" />
@@ -164,6 +198,15 @@ export default function FilterSection({ onFilterChange }: FilterSectionProps) {
             <h3 className="text-sm font-medium text-gray-700 mb-2">Banlist Format</h3>
             <BanlistFilter selectedBanlist={filters.banlist} onBanlistChange={handleBanlistChange} />
           </div>
+          {showRestrictionFilter && (
+            <div>
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Restriction Status</h3>
+              <RestrictionFilter
+                selectedRestriction={filters.restriction}
+                onRestrictionChange={handleRestrictionChange}
+              />
+            </div>
+          )}
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Sort</h3>
             <SortFilter selectedSort={filters.sort || ""} onSortChange={handleSortChange} cardType="skill" />

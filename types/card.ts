@@ -16,6 +16,11 @@ export interface CardData {
     set_rarity_code: string
     set_price: string
   }[]
+  banlist_info?: {
+    ban_tcg?: string
+    ban_ocg?: string
+    ban_goat?: string
+  }
   card_images: {
     id: number
     image_url: string
@@ -41,6 +46,7 @@ export interface FilterOptions {
   attribute: string | null
   sort: string
   banlist: string
+  restriction: string
 }
 
 export interface SortOption {

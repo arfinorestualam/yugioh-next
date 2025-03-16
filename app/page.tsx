@@ -18,6 +18,7 @@ export default function Home() {
     attribute: null,
     sort: "",
     banlist: "",
+    restriction: "",
   })
 
   const handleFilterChange = useCallback((newFilters: FilterOptions) => {
